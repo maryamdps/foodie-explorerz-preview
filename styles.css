@@ -422,3 +422,34 @@ body p:not(.kicker):not(.eyebrow),
   .feature h3 { font-size: 22px; }
   .lead, .metric-intro { font-size: 18px; }
 }
+
+/* 2026–27 F&B growth website components */
+.pillars{grid-template-columns:repeat(3,minmax(0,1fr))}
+.pillar-block{margin-top:54px}
+.pillar-heading{display:grid;grid-template-columns:70px 1fr;gap:18px;align-items:start;margin-bottom:24px}
+.pillar-number{font:500 48px/1 var(--serif);color:var(--accent)}
+.pillar-heading .h2{font-size:clamp(32px,4vw,52px);max-width:900px}
+.pillar-heading .kicker{margin-bottom:10px}
+.package-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:38px}
+.package-card{background:var(--cream);border:1px solid var(--line);padding:30px;display:flex;flex-direction:column;min-height:250px}
+.package-card.featured-package{background:var(--ink);color:var(--cream)}
+.package-index{font-size:9px;letter-spacing:.16em;color:var(--accent);font-weight:700}
+.package-card h3{font:500 27px/1.15 var(--serif);margin:20px 0 12px}
+.package-card p{font-size:14px!important;line-height:1.75;color:var(--muted);margin:0}
+.featured-package p{color:#d0cec5}
+.featured-package .package-index{color:#e8a18b}
+.pricing-anchor{margin:36px 0 20px;font-size:15px;line-height:1.7;color:var(--muted);max-width:760px}
+.pricing-anchor strong{color:var(--ink)}
+.services-cta-row{margin-top:22px}
+.contact-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:8%;align-items:start}
+.contact-email-label{font-size:9px;letter-spacing:.16em;font-weight:700;color:var(--accent);margin:30px 0 8px}
+.contact-email{font:500 clamp(18px,2.2vw,25px) var(--serif);border-bottom:1px solid var(--line);padding-bottom:7px;overflow-wrap:anywhere}
+.contact-social{margin-top:50px}
+.inquiry-form{max-width:none;background:var(--cream);padding:30px;border:1px solid var(--line)}
+.inquiry-form label{margin-top:17px}
+.inquiry-form input,.inquiry-form select,.inquiry-form textarea{border-radius:0;min-height:48px}
+.inquiry-form textarea{min-height:145px}
+.inquiry-form button{margin-top:22px;border:0;cursor:pointer}
+.tag-list{margin:22px 0 28px}
+@media(max-width:900px){.pillars{grid-template-columns:1fr 1fr}.contact-layout{grid-template-columns:1fr;gap:40px}}
+@media(max-width:650px){.pillars,.package-grid{grid-template-columns:1fr}.pillar-heading{grid-template-columns:45px 1fr;gap:12px}.pillar-number{font-size:36px}.pillar-heading .h2{font-size:34px}.package-card{padding:24px;min-height:0}.inquiry-form{padding:20px}.contact-email{font-size:21px}}
