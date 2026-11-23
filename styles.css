@@ -600,3 +600,17 @@ body p:not(.kicker):not(.eyebrow),
   padding-left:0;
   padding-right:0;
 }
+
+
+/* Privacy notice: keep section headings simple and restrained */
+.privacy-page .section .split .h2{
+  font:600 21px/1.35 var(--sans);
+  letter-spacing:0;
+  margin:0 0 12px;
+}
+.privacy-page .section .split .h2 em{
+  font-style:normal;
+}
+@media(max-width:650px){
+  .privacy-page .section .split .h2{font-size:19px}
+}
