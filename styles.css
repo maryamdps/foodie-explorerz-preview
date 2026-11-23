@@ -591,3 +591,12 @@ body p:not(.kicker):not(.eyebrow),
   .services-pillars .service-rows{grid-template-columns:1fr;gap:10px}
   .services-pillars .service-row{padding:16px 17px}
 }
+
+
+/* Services page: remove the outer outline around each pillar */
+.services-pillars .service-pillar{
+  border:0;
+  background:transparent;
+  padding-left:0;
+  padding-right:0;
+}
