@@ -1,0 +1,15 @@
+Options -MultiViews
+RewriteEngine On
+
+# Redirect legacy .html URLs to clean URLs
+RewriteCond %{THE_REQUEST} \s/+([a-zA-Z0-9_-]+)\.html[\s?] [NC]
+RewriteRule ^([a-zA-Z0-9_-]+)\.html$ /$1 [R=301,L,NE]
+
+# Serve the matching .html file for clean URLs
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([a-zA-Z0-9_-]+)/?$ $1.html [L]
+
+# Keep the homepage working at the root
+DirectoryIndex index.html
