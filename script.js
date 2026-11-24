@@ -1,4 +1,16 @@
-const toggle=document.querySelector('.menu');const nav=document.querySelector('.nav');if(toggle&&nav){toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open))});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false')}))}document.querySelectorAll('[data-year]').forEach(n=>n.textContent=new Date().getFullYear());
+const toggle=document.querySelector('.menu');
+const nav=document.querySelector('.nav');
+if(toggle&&nav){
+  toggle.addEventListener('click',()=>{
+    const open=nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded',String(open));
+  });
+  nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded','false');
+  }));
+}
+document.querySelectorAll('[data-year]').forEach(n=>n.textContent=new Date().getFullYear());
 
 const inquiryForm=document.querySelector('.inquiry-form');
 if(inquiryForm){
@@ -12,8 +24,11 @@ if(inquiryForm){
   inquiryForm.addEventListener('submit',async event=>{
     event.preventDefault();
     const submitButton=inquiryForm.querySelector('button[type="submit"]');
-    const originalButtonText=submitButton?submitButton.innerHTML:'';
-    if(submitButton){submitButton.disabled=true;submitButton.textContent='Sending…'}
+    const originalButtonText=submitButton ? submitButton.innerHTML : '';
+    if(submitButton){
+      submitButton.disabled=true;
+      submitButton.textContent='Sending…';
+    }
     status.hidden=true;
 
     try{
@@ -22,19 +37,24 @@ if(inquiryForm){
         body:new FormData(inquiryForm),
         headers:{'Accept':'application/json'}
       });
-      const data=await response.json();
+      const responseText=await response.text();
+      let data={};
+      try{ data=JSON.parse(responseText); }catch(parseError){}
 
-      if(response.ok&&(data.success===true||data.success==='true')){
+      if(response.ok && !(data.success===false || data.success==='false')){
         inquiryForm.reset();
-        status.textContent="Thank you for your enquiry! We've received your message and will be in touch shortly.";
+        status.textContent="Sent! Thank you for your enquiry. We've received your message and will be in touch shortly.";
       }else{
-        status.textContent=data.message||data.error||'Sorry, your enquiry could not be submitted. Please try again or email us at info@foodieexplorerz.com.';
+        status.textContent=data.message || data.error || 'Sorry, your enquiry could not be submitted. Please try again or email info@foodieexplorerz.com.';
       }
     }catch(error){
-      status.textContent='There was a connection issue. Please try again or email us at info@foodieexplorerz.com.';
+      status.textContent='There was a connection issue. Please try again or email info@foodieexplorerz.com.';
     }finally{
       status.hidden=false;
-      if(submitButton){submitButton.disabled=false;submitButton.innerHTML=originalButtonText}
+      if(submitButton){
+        submitButton.disabled=false;
+        submitButton.innerHTML=originalButtonText;
+      }
     }
   });
 }
