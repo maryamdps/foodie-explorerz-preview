@@ -15,22 +15,19 @@ if(inquiryForm){
     if(submitButton){submitButton.disabled=true;submitButton.textContent='Sending…'}
     status.hidden=true;
     try{
+      const formData=Object.fromEntries(new FormData(inquiryForm).entries());
       const response=await fetch(inquiryForm.action,{
         method:'POST',
-        body:new FormData(inquiryForm),
-        headers:{'Accept':'application/json'}
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify(formData)
       });
-      if(response.ok){
+      const data=await response.json();
+      if(response.ok&&(data.success===true||data.success==='true')){
         inquiryForm.reset();
         status.textContent="Thank you for your enquiry! We've received your message and will be in touch shortly.";
         status.hidden=false;
       }else{
-        let message='Sorry, your enquiry could not be submitted. Please try again or email us at info@foodieexplorerz.com.';
-        try{
-          const data=await response.json();
-          if(data.errors&&data.errors.length) message=data.errors.map(error=>error.message).join(' ');
-        }catch(_){}
-        status.textContent=message;
+        status.textContent=(data.message||data.error||'Sorry, your enquiry could not be submitted. Please try again or email us at info@foodieexplorerz.com.');
         status.hidden=false;
       }
     }catch(_){
