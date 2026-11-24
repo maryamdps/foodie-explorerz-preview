@@ -25,7 +25,7 @@ if(inquiryForm){
         status.textContent="Thank you for your enquiry! We've received your message and will be in touch shortly.";
         status.hidden=false;
       }else{
-        let message='Sorry, your enquiry could not be submitted. Please try again or email us at foodieexplorerz@gmail.com.';
+        let message='Sorry, your enquiry could not be submitted. Please try again or email us at info@foodieexplorerz.com.';
         try{
           const data=await response.json();
           if(data.errors&&data.errors.length) message=data.errors.map(error=>error.message).join(' ');
@@ -34,7 +34,7 @@ if(inquiryForm){
         status.hidden=false;
       }
     }catch(_){
-      status.textContent='There was a connection issue. Please try again or email us at foodieexplorerz@gmail.com.';
+      status.textContent='There was a connection issue. Please try again or email us at info@foodieexplorerz.com.';
       status.hidden=false;
     }finally{
       if(submitButton){submitButton.disabled=false;submitButton.innerHTML=originalButtonText}
