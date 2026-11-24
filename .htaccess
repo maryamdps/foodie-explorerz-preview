@@ -8,7 +8,7 @@ RewriteRule ^([a-zA-Z0-9_-]+)\.html$ /$1 [R=301,L,NE]
 # Serve the matching .html file for clean URLs
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^([a-zA-Z0-9_-]+)/?$ $1.html [L]
 
 # Keep the homepage working at the root
