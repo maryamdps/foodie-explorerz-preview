@@ -8,32 +8,32 @@ if(inquiryForm){
   status.setAttribute('aria-live','polite');
   status.hidden=true;
   inquiryForm.insertAdjacentElement('afterend',status);
+
   inquiryForm.addEventListener('submit',async event=>{
     event.preventDefault();
     const submitButton=inquiryForm.querySelector('button[type="submit"]');
     const originalButtonText=submitButton?submitButton.innerHTML:'';
     if(submitButton){submitButton.disabled=true;submitButton.textContent='Sending…'}
     status.hidden=true;
+
     try{
-      const formData=Object.fromEntries(new FormData(inquiryForm).entries());
       const response=await fetch(inquiryForm.action,{
         method:'POST',
-        headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body:JSON.stringify(formData)
+        body:new FormData(inquiryForm),
+        headers:{'Accept':'application/json'}
       });
       const data=await response.json();
+
       if(response.ok&&(data.success===true||data.success==='true')){
         inquiryForm.reset();
         status.textContent="Thank you for your enquiry! We've received your message and will be in touch shortly.";
-        status.hidden=false;
       }else{
-        status.textContent=(data.message||data.error||'Sorry, your enquiry could not be submitted. Please try again or email us at info@foodieexplorerz.com.');
-        status.hidden=false;
+        status.textContent=data.message||data.error||'Sorry, your enquiry could not be submitted. Please try again or email us at info@foodieexplorerz.com.';
       }
-    }catch(_){
+    }catch(error){
       status.textContent='There was a connection issue. Please try again or email us at info@foodieexplorerz.com.';
-      status.hidden=false;
     }finally{
+      status.hidden=false;
       if(submitButton){submitButton.disabled=false;submitButton.innerHTML=originalButtonText}
     }
   });
